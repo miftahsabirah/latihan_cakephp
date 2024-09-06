@@ -24,7 +24,6 @@ class ReportsController extends AppController
     // die();
     $this->loadModel('Customers');
 
-    // Mulai query
     $query = $this->Customers->find()
         ->contain(['Purchases', 'Sales']) 
         ->matching('Purchases', function ($q) use ($startDate, $endDate) {
@@ -40,7 +39,24 @@ class ReportsController extends AppController
             }
             return $q; 
         });
-        
+
+        // ->matching('Sales', function ($q) use ($startDate, $endDate) {
+        //     if ($startDate && $endDate) {
+        //         return $q->where([
+        //             'Sales.date >=' => $startDate,
+        //             'Sales.date <=' => $endDate
+        //         ]);
+        //     } elseif ($startDate) {
+        //         return $q->where(['Sales.date >=' => $startDate]);
+        //     } elseif ($endDate) {
+        //         return $q->where(['Sales.date <=' => $endDate]);
+        //     }
+        //     return $q; // jika tidak ada filter
+        // });
+
+    // Debug query
+    // debug($query->sql()); // Menampilkan query SQL yang dihasilkan
+    // die(); 
 
     // Ambil semua data
     $customers = $query->all();
