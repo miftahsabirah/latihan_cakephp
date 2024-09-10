@@ -79,6 +79,8 @@ return function (RouteBuilder $routes): void {
     });
 
     $routes->connect('/reports/customer', ['controller' => 'Reports', 'action' => 'customerReport']);
+    $routes->connect('/articles', ['controller' => 'Articles', 'action' => 'index']);
+
 
 
     /*
